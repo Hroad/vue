@@ -19,8 +19,9 @@ vue学习.....
 <hr />
 
 ### vue的常用指令
-- v-text
-- v-html
-- v-if 
-- v-show 
-- v-model 
+- v-text 是元素的innertext只能在双标签中使用
+- v-html 是元素的innerhtml,不能包含{{xxx}}
+- v-if   元素是否移除或插入
+- v-show 元素是否显示或隐藏
+- v-model 数据双向绑定
+- v-bind  数据单向绑定
