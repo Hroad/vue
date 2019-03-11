@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>购物车实例</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css"/>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<style type="text/css">
+			[v-cloak]{
+				display: none;
+			}
+			table{
+				border: 1px solid #e9e9e9;
+				border-collapse: collapse;
+				border-spacing: 0;
+				empty-cells: show;
+			}
+			th,td{
+				padding: 8px 16px;
+				border: 1px solid #E9E9E9;
+				text-align: left;
+			}
+			th{
+				background: #f7f7f7;
+				color: #5c6b77;
+				font-weight: bold;
+				white-space: nowrap;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<template v-if="list.lenght">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>商品名称</th>
+							<th>商品单价</th>
+							<th>购买数量</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(item,index) in list">
+							<td>{{ index+1 }}</td>
+							<td>{{ item.name }}</td>
+							<td>{{ item.price }}</td>
+							<td>
+								<button @click="handleReduce(index)" :disabled="item.count===1">-</button>
+								{{item.count}}
+								<button @click="handleAdd(index)">+</button>
+							</td>
+							<td>
+								<button @click="handleRemove(index)">移除</button>
+							</td>
+						</tr>
+					</tbody>
+					<div>总价：￥ {{totalPrice}} </div>
+				</table>
+			</template>
+			<div v-else>购物车为空</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		var app = new Vue({
+		el :'#app',
+		data: {
+			list: [
+				{
+					id: 1,
+					name: 'iphone7',
+					price: 6188,
+					count: 1
+				},
+				{
+					id: 2,
+					name: 'ipad pro',
+					price: 5888,
+					count: 1
+				},
+				{
+					id: 3,
+					name: 'macbook pro',
+					price: 21488,
+					count: 1
+				}
+			]
+		},
+		computed: {
+			totalPrice: function (){
+				var total = 0;
+				for (var i=0; i<this.list.lenght; i++){
+					var item = this.list[i];
+					total+=item.price*item.count;
+				}
+				return total.toString().replace(/\B(?=(\d{3})+$)/g,',');   
+	//			千位分隔符的正则表达式
+			}
+		},
+		methods: {
+			handleReduce:function (index){
+				if(this.list[index].count===1) return;
+				this.list[index].count--;
+			},
+			handleAdd:function (index){
+				this.list[index].count++;
+			},
+			handleRemove:function (index){
+				this.list.splice(index,1);
+			}
+		}
+	});
+	</script>
+</html>
+
+

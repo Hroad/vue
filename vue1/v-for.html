@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>vue练习</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css"/>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--v-for:迭代-->
+			<!--通过数组来渲染列表-->
+			<ol>
+				<li v-for="site in sites">
+					{{ site.name }}
+				</li>
+				<li v-for="site in sites">
+					{{ site.city }}
+				</li>
+			</ol>
+			<hr />
+			<!--通过对象属性来绑定数据-->
+			<ul>
+				<li v-for="value in object"> 
+					{{ value }}
+				</li>
+			</ul>
+			<hr />
+			<!--使用v-for循环整数-->
+			<ul>
+				<li v-for="n in 10">
+					{{ n }}
+				</li>
+			</ul>
+			<hr />
+			
+		</div>
+		
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					sites: [
+						{name: 'runoob',city:'1'},
+						{name: 'slide'},
+						{name: '我是v-for的实验内容1'},
+						{name: '我是v-for的实验内容2'},
+						{name: '我是v-for的实验内容3'},
+						{name: '我是v-for的实验内容4'},
+					],
+					object:{ 
+						name: '百度',
+						url: 'www.baidu.com',
+						slogan: '我是v-for的实验',
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

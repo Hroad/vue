@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>vue练习</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css"/>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div :class="{ active: isActive }"></div>
+			<!--class绑定：如果为真就添加class，如果为假就不添加-->
+			<hr />
+			<div class="static" :class="{active: isActive,'text-danger': hasError}"></div>
+			<!--多个class属性绑定和切换-->
+			<hr />
+			<div :class="[activeClass,errorClass]"></div>
+			<!--使用数组传递class-->
+			<hr />
+			<div :style="{color:activeColor,fontSize:fontSize + 'px'}">我是v-bind:style的内联样式</div>
+			<!--使用v-bind:style直接使用内联样式-->
+			<hr />
+			<div :style="styleObject">将样式直接绑定一个对象上</div>
+			<!--使用v-bind:style直接将样式绑定到一个对象上-->
+			<hr />
+			<div :style="[basestyles,fontstyles]">使用数组将多个样式应用到对象上</div>
+			<!--使用数组将多个样式应用到对象上-->
+			<hr />
+		</div>
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					isActive: true,
+					hasError: true,
+					activeClass: 'active',
+					errorClass: 'text-danger',
+					activeColor: 'red',
+					fontSize: 30,
+					styleObject:{
+						color: 'red',
+						fontSize: '25px'
+					},
+					basestyles:{
+						color: 'green',
+						fontSize: '20px'
+					},
+					fontstyles:{
+						'font-weight': 'bold'
+					}
+				}
+			})
+		</script>
+		<style>
+			.active{
+				width: 100px ;
+				height: 100px ;
+				background: green;
+			}
+			.text-danger{
+				width: 200px;
+				height: 200px;
+				background: red;
+			}
+		</style>
+	</body>
+</html>

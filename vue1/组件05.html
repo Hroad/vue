@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		
+		
+		<div id="box">
+			<!-- 组件 -->
+			<child-component></child-component>
+			
+		</div>
+		
+		<script>
+			Vue component("child-component",{
+				template:'<div v-show="showChild">子组件</div>'
+				data : function(){
+					return{
+						showChild:true
+					}
+				}
+			})	
+			
+			
+			var app = new Vue({
+				el:'#box'
+				
+			})
+
+		
+			
+		</script>
+	</body>
+</html>
+
+
+

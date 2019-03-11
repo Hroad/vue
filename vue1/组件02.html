@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		
+	</head>
+	<body>
+		<div id="box">
+			<!-- 组件 -->
+			<my-header></my-header>
+			{{hea}}
+			<br>
+			<hr>
+			<!-- 事件绑定更新 -->
+			<select v-model="select">
+				<option v-for="itme in option" :value ="itme.text">{{ itme.value }}</option>
+			</select>
+			<p>你选择的项是：{{select}}</p>
+			<br>
+			<hr>
+			<!-- .lazy在失去焦点时触发更新 -->
+			<input type="text" v-model.lazy="txt">
+			<p>{{txt}}</p>
+		</div>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			Vue.component('my-header',{
+				template:'<p>this is header</p>'
+			})	
+			var my = new Vue({
+				el:'#box',
+				data:{
+					hea:'hello Word',
+					select:'',
+					txt:'',
+					option:[
+						{
+							text:'apple',
+							value:'1'
+						},
+						{
+							text:'yellow',
+							value:'2'
+						},
+						{
+							text:'banana',
+							value:'3'
+						}
+					]
+				},
+				
+					
+				
+			}) 
+		</script>
+	</body>
+</html>

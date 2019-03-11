@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>vue练习</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css"/>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<style type="text/css">
+			.class1{
+				color: #fff;
+				background: #f00;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<label for="r1">修改颜色</label><input type="checkbox" v-model="class1" id="r1" />
+			<br /><br />
+			<div :class="{'class1':class1}">
+				v-bind:class1<br />
+				{{ 5+5 }}<br />
+				5+5
+			</div><br /><hr />
+			<a :href="url">百度</a><br /><hr />
+			<input type="text" v-model="message" /><p>{{message}}</p>
+			
+		</div> 
+		
+		<script>
+			new Vue({
+			  el: '#app',
+			  data: {
+			   	class1:true,
+			   	url:'http://www.baidu.com',
+			   	message: '我是v-model'
+			  }
+			})
+		</script>
+	</body>
+</html>

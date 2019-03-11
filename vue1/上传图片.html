@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>上传图片</title>
+</head>
+<body>
+<div class="yanzRight">
+<input name="evidence" onchange="uploadImg(this,'preview')" type="file"/>
+<span class="dui" id="imgOrder_dui" style="display: none;"></span>
+</div>
+<div id="preview">
+<img src="" alt="" id="imghead5" height="200" width="200" />
+</div>
+
+
+<div id='showMsg' disabled style="font-size: 16px; line-height: 33px; width: 300px;"></div><br>
+<textArea id='msg'></textArea><br>
+<input type='button' value='submit' onclick="showMsgs()">
+
+</body>
+
+<script>
+function uploadImg(file,imgNum){
+var widthImg = 200; //显示图片的width
+var heightImg = 200; //显示图片的height
+var div = document.getElementById(imgNum);
+if (file.files && file.files[0]){
+div.innerHTML ='<img id="upImg">'; //生成图片
+var img = document.getElementById('upImg'); //获得用户上传的图片节点
+img.onload = function(){
+img.width = widthImg;
+img.height = heightImg;
+}
+var reader = new FileReader(); //判断图片是否加载完毕
+reader.onload = function(evt){
+if(reader.readyState === 2){ //加载完毕后赋值
+img.src = evt.target.result;
+}
+}
+reader.readAsDataURL(file.files[0]); 
+}
+}
+</script>
+
+<script type="text/javascript">
+function showMsgs(){
+var msg = document.getElementById("msg").value;
+var showMsg = document.getElementById("showMsg");
+showMsg.innerHTML = msg;
+}
+</script>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>vue练习</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css"/>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>原始字符串：{{ msg }}</p>
+			<p>计算后反转的字符串：{{ remsg }}</p>
+		</div>
+		
+		
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					msg: 'runoob!!'
+				},
+				computed: {
+//					计算属性的getter	
+					remsg: function (){
+//						this指向vue实例
+						return this.msg.split('').reverse().join('')
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

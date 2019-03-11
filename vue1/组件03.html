@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<div id="box">
+			<!-- 组件 -->
+			<table>
+				<tbody is='my-component'></tbody>
+			</table>
+			<br>
+			<hr>
+			
+			<!-- 父传子 -->
+			<input type="text" v-model="pass" />
+			<my-component :messge="pass"></my-component>
+		</div>
+		
+		<script>
+			
+// 			Vue.component('my-component',{
+// 				template:'<div>这是一个组件</div>'
+// 			})
+	
+			Vue.component('my-component',{
+				props:['messge'],
+				template:'<div>{{messge}}</div>'
+			})
+
+			var app = new Vue({
+				el:'#box',
+				data:{
+					pass:'',
+					
+				}
+			})
+			
+		</script>
+	</body>
+</html>
+
+
+

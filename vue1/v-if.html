@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>vue练习</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css"/>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p v-if="seen">现在你看到我了</p>
+			<!--如果为真就插入p标签，为假就不插入p标签,dom节点也不显示-->
+			<hr />
+			<input type="text" v-model="message" />
+			<p>{{message}}</p>
+			<!--数据双向帮绑定-->
+			<hr />
+			<p>{{message}}</p>
+			<button @click="reverseMessage">反转字符串</button>
+			<!--字符串反转-->
+			<hr />
+			<!--生成随机数，判断是否大于5，输出对应的信息-->
+			<div v-if="num > 0.5">
+				sorry
+			</div>
+			<div v-else>
+				not sorry
+			</div>
+			<hr />
+			<!--根据type的内容显示相应的信息-->
+			<div v-if="type==='A'">
+				A
+			</div>
+			<div v-else-if="type==='B'">
+				B
+			</div>
+			<div v-else-if="type==='C'">
+				C
+			</div>
+			<div v-else>
+				not A/B/C
+			</div>
+			<hr />
+			<div v-show="ok">
+				hello.
+			</div>
+			<!--如果为真就显示，为假就隐藏，但是dom节点还在-->
+			<hr />
+			
+		</div>
+		
+		<script>
+//			console.log(num)
+			new Vue({
+			  el: '#app',
+			  data: {
+			    seen: true,
+			    message: 'v-model数据双向绑定！',
+			    type : 'A',
+			    ok : true,
+			    num:Math.random()
+			    
+			  },
+			  methods:{
+			  	reverseMessage : function (){
+			  		this.message = this.message.split('').reverse().join('')
+//			  		split('',想将字符穿几个一分(填数字)):将字符串分割成字符串数组
+//					reverse(''):用于颠倒数组元素中字符串的顺序
+//					join(''):用于将数组中的元素整合成一个字符串
+			  	}
+			  	
+			  }
+			})
+		</script>
+	</body>
+</html>

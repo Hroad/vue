@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>vue练习</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css"/>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		
+	</head>
+	<body>
+		<div id="app">
+			<!--v-on事件监听事件-->
+			<button @click="counter += 1">增加1</button>
+			<button @click="counter = 0">重置</button>
+			<p>这个按钮被点击了 {{ counter }} 次！</p>
+			<hr />
+			
+			<!--greet是在下面定义的方法名-->
+			<button @click="greet">Greet</button>
+			<!--使用自定义的方法来调用-->
+			<hr />
+			
+			<!--使用v-on内联javascript样式-->
+			<button @click="say('我是Hi...')">say hi</button>
+			<button @click="say('我是what...')">say what</button><br />
+			以下是一些扩展：
+			<!-- 阻止单击事件冒泡 -->
+			<a v-on:click.stop="doThis">111</a>
+			<!-- 提交事件不再重载页面 -->
+			<form v-on:submit.prevent="onSubmit">222</form>
+			<!-- 修饰符可以串联  -->
+			<a v-on:click.stop.prevent="doThat">333</a>
+			<!-- 只有修饰符 -->
+			<form v-on:submit.prevent>444</form>
+			<!-- 添加事件侦听器时使用事件捕获模式 -->
+			<div v-on:click.capture="doThis">...</div>
+			<!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+			<div v-on:click.self="doThat">...</div>
+			
+			<!-- click 事件只能点击一次，2.1.4版本新增 -->
+			<a v-on:click.once="doThis">555</a>
+			<hr />
+			
+			<!--使用v-on来监听键盘事件-->
+			<input @keyup.enter="submit"><br />
+			以下是通用的键盘按键的别名，用法同上：input @keyup.enter="submit"<br />
+			.enter<br />
+			.tab<br />
+			.delete (捕获 "删除" 和 "退格" 键)<br />
+			.esc<br />
+			.space<br />
+			.up<br />
+			.down<br />
+			.left<br />
+			.right<br />
+			.ctrl<br />
+			.alt<br />
+			.shift<br />
+			.meta<br />
+			<hr />
+			
+			
+		</div>
+		
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					counter: 0,
+					name: 'Vue.js ! '
+				},
+//				在methods中定义方法
+				methods: {
+//					自定义方法
+					greet: function (event){
+//						this在方法里指当前vue实例
+						alert('Hello ' + this.name + '!')
+//						event是原生dom事件
+						if(event){							
+							alert(event.target.tagName)
+						}
+					},
+//					使用javascript内联样式
+					say: function(message) {
+						alert(message)
+					},
+//					键盘按键事件
+					submit: function(){
+						alert(111111)
+					},
+				}
+				
+			})
+//			使用javascript直接调用
+			app.greet()  // => Hello Vue.js !!
+		</script>
+	</body>
+</html>

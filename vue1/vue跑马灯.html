@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue跑马灯效果</title>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			[v-clock]{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="box">
+			<input type="button" value="浪起来" @click="dong" />
+			<input type="button" value="低调" @click="stop" />
+			<p v-clock>{{ msg }}</p>
+		</div>
+		
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					msg:'猥琐发育，别浪~~！',
+					setintervalId:null
+				},
+				methods:{
+					dong(){
+						if(this.setintervalId != null) return;
+						this.setintervalId = setInterval( () => {
+							var start = this.msg.substring(0,1)
+							var last = this.msg.substring(1)
+							this.msg = last + start
+						},400)
+					},
+					stop(){
+						clearInterval(this.setintervalId)
+						this.setintervalId = null
+					}
+				}
+			})
+		</script>
+		
+		
+		
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		
+		
+		<div id="box">
+			<!-- 组件 -->
+			<my-component :init-count='20203'></my-component>
+			
+		</div>
+		
+		<script>
+				
+			Vue.component('my-component',{
+				props:['initCount'],
+				template:'<div>{{count}}</div>',
+				data:function(){
+					return{
+						count:this.initCount
+					}
+				}
+			})
+			var app = new Vue({
+				el:'#box'
+				
+			})
+
+		
+			
+		</script>
+	</body>
+</html>
+
+
+

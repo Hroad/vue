@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<template>
+					<li>书名：{{book.name}}</li>
+					<li>作者：{{book.author}}</li>
+				</template>
+			</ul>
+		</div>
+		<script>
+			var app = new vue({
+				el:'#box',
+				data:{
+					books:[{
+						name:'vue实战',
+						author:'梁'
+					},{
+						name:'javascript语言精粹',
+						author:'douglas'
+					},{
+						name:'javascript高级程序设计',
+						author:'nicholas'
+					}]
+				}
+			});			
+		</script>
+	</body>
+</html>
