@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue事件修饰符</title>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.kdiv{
+				height:200px;
+				background: #1B6D85;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<!-- 使用 .stop 阻止事件的冒泡 -->
+			<!-- <div class="kdiv" @click="kdivbubling">
+				<input type="button" value="戳我" @click.stop="inputbubling">
+			</div> -->
+			
+			<!-- 使用 .prevent 阻止默认事件 -->
+			<!-- <a href="http://www.baidu.com" @click.prevent="defaultbtn">有问题，找百度啊！</a> -->
+			
+			<!-- 使用 .capture 调用捕获事件 -->
+			<!-- <div class="kdiv" @click="kdivbubling">
+				<input type="button" value="戳我" @click.captrue="inputbubling">
+			</div> -->
+			
+			<!-- 使用 .self 触发自身事件 -->
+			<!-- <div class="kdiv" @click="kdivbubling">
+				<input type="button" value="戳我"  @click.self="inputbubling">
+			</div> -->
+			
+			<!-- 使用 .once 只触发一次事件 -->
+			<a href="http://www.baidu.com" @click.prevent.once="defaultbtn">有问题，找百度啊！</a>
+			
+			
+		</div>
+		
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'.box',
+				methods:{
+					kdivbubling(){
+						console.log('触发了 kdiv 的click事件')
+					},
+					inputbubling(){
+						console.log('触发了 button 的click事件')
+					},
+					defaultbtn(){
+						console.log('触发了 a 标签的click事件')
+					}					
+				}
+			})
+		</script>
+		
+		
+		
+	</body>
+</html>

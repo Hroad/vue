@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-model</title>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="box">
+			<p>{{ msg }}</p>
+			
+			<!-- 使用 v-bind 只能实现数据的单向绑定， 从 M 层绑定到 V 层 -->
+			<input type="text" v-bind:value="msg" style="width:100%" />
+			
+			<!-- 使用 v-model实现数据的双向绑定，注意：v-model只能运用在表单元素中 -->
+			<input type="text" v-model="msg" style="width:100%" />
+			
+			
+		</div>
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					msg:'我爱学习，学习是我快乐，Holle，Word！'
+				}
+			})
+		</script>
+		
+	</body>
+</html>
