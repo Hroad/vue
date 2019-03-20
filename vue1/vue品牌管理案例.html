@@ -11,7 +11,7 @@
 		<div class="box">
 			
 			<div class="panel">
-				<div class="panel panel-title">
+				<div class="panel-title">
 					<h3 class="text-primary" style="padding-left: 30px;">添加品牌</h3>
 				</div>
 				<div class="panel-body form-inline">
@@ -21,14 +21,14 @@
 					</label>
 					<label>
 						Name:
-						<input type="text" class="form-control" v-model="name" @keyUp.f2="add">
+						<input type="text" class="form-control" v-model="name" @keyUp.enter="add">
 					</label>
 					
 					<input type="button" value="添加" class="btn btn-primary" @click="add">
 					
 					<label>
 						按关键字搜索:
-						<input type="text" class="form-control" v-model="keywords">
+						<input type="text" class="form-control" v-model="keywords" v-focus v-color="'#00f'">
 					</label>
 					
 				</div>
@@ -58,7 +58,7 @@
 		</div>
 		
 		<div class="box2">
-			<h2>{{ dt | DateFromet }}</h2>
+			<h2 v-color="'#f00'">{{ dt | DateFromet }}</h2>
 		</div>
 		
 		<script type="text/javascript">
@@ -79,7 +79,32 @@
 			
 			
 			// 自定义全局按键修饰符
-			Vue.config.keyCodes.f2 = 113
+			<!-- Vue.config.keyCodes.f2 = 113 -->
+			
+			 // 自定义全局指令 
+			 // 注意：在自定义全局指令时不需要加 v- 前缀，但是在调用全局指令时需要加 v- 前缀 
+			 // 所有自定义指令的函数,第一个参数永远都是el,而这个el就是一个原生js对象,可以进行DOM操作
+			Vue.directive('focus', {
+				bind(el) {
+					
+				},
+				inserted(el){    //表示元素当插入到DOM中的时候执行此函数,只执行一次
+					el.focus()
+				},
+				updated(el){     //当VNode更新的时候执行此函数,可能执行多次
+					
+				}
+				
+			});
+			
+			
+			Vue.directive('color',{
+				bind(el,binding){
+					// el.style.color = 'red'
+					el.style.color = binding.value
+				}
+			})
+			
 			
 			
 			// 创建一个vue实例
@@ -110,8 +135,10 @@
 				},
 				methods:{
 					add(){   //添加方法
-						this.list.push({id:this.id,name:this.name,ctime:new Date()})
-						this.id = this.name = ''
+						if(this.name != '' && this.id != ''){
+							this.list.push({id:this.id,name:this.name,ctime:new Date()})
+							this.id = this.name = ''
+						}
 					},
 					del(id){   //删除方法
 // 						this.list.some((itme,i) => {
@@ -145,8 +172,8 @@
 						
 
 					},	
-					
-				}
+				},
+				
 			})
 			
 			var vm2 = new Vue({
@@ -168,6 +195,13 @@
 						var mm = dt.getMinutes().toString().padStart(2,'0')
 						var dd = dt.getSeconds().toString().padStart(2,'0')
 						return `${y}-${m}-${d} ${hh}:${mm}:${dd}~~~~~~~~`
+					}
+				},
+				directive:{     //定义私有指令(局部)
+					'color':{   //指令名
+						bind(el,binding){     //指令的函数
+							el.style.color = binding.value
+						}
 					}
 				}
 			})
