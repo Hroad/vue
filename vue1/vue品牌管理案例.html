@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue品牌管理案例</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		<div class="box">
+			
+			<div class="panel">
+				<div class="panel panel-title">
+					<h3 class="text-primary" style="padding-left: 30px;">添加品牌</h3>
+				</div>
+				<div class="panel-body form-inline">
+					<label>
+						Id:
+						<input type="text" class="form-control" v-model="id">
+					</label>
+					<label>
+						Name:
+						<input type="text" class="form-control" v-model="name" @keyUp.f2="add">
+					</label>
+					
+					<input type="button" value="添加" class="btn btn-primary" @click="add">
+					
+					<label>
+						按关键字搜索:
+						<input type="text" class="form-control" v-model="keywords">
+					</label>
+					
+				</div>
+				
+				
+			</div>
+			
+			<table class="table table-bordered table-condensed table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Ctime</th>
+						<th>Del</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="itme in search(keywords)" :key="itme.id">
+						<td>{{ itme.id }}</td>
+						<td>{{ itme.name }}</td>
+						<td>{{ itme.ctime | DateFromet }}</td>
+						<td><a href="#" @click.prevent="del(itme.id)">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+		
+		<div class="box2">
+			<h2>{{ dt | DateFromet }}</h2>
+		</div>
+		
+		<script type="text/javascript">
+			
+			// 全局的过滤器,进行时间的格式化
+			// 所谓的全局过滤器,就是所有的vm示例都能用
+			Vue.filter('DateFromet',function(){
+				var dt = new Date()
+				var y = dt.getFullYear()
+				var m = (dt.getMonth() + 1).toString().padStart(2,'0')
+				var d = dt.getDate().toString().padStart(2,'0')
+				var hh = dt.getHours().toString().padStart(2,'0')
+				var mm = dt.getMinutes().toString().padStart(2,'0')
+				var dd = dt.getSeconds().toString().padStart(2,'0')
+				return `${y}-${m}-${d} ${hh}:${mm}:${dd}`
+				
+			})
+			
+			
+			// 自定义全局按键修饰符
+			Vue.config.keyCodes.f2 = 113
+			
+			
+			// 创建一个vue实例
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					id:'',
+					name:'',
+					keywords:'',
+					
+					list:[
+						{
+							id:'1',
+							name:'奔驰',
+							ctime:new Date()
+						},
+						{
+							id:'2',
+							name:'宝马',
+							ctime:new Date()
+						},
+						{
+							id:'3',
+							name:'奥迪',
+							ctime:new Date()
+						}
+					]
+				},
+				methods:{
+					add(){   //添加方法
+						this.list.push({id:this.id,name:this.name,ctime:new Date()})
+						this.id = this.name = ''
+					},
+					del(id){   //删除方法
+// 						this.list.some((itme,i) => {
+// 							if(itme.id == id){
+// 								this.list.splice(i,1)
+// 								return true
+// 							}
+// 						})
+
+						var index = this.list.findIndex( itme => {
+							if(itme.id == id){
+								return true;
+							}
+						})
+						this.list.splice(index,1)
+					},
+					search(keywords){    //按关键字查找
+// 						var newList = []
+// 						this.list.forEach(itme => {
+// 							if(itme.name.indexOf(keywords) != -1){
+// 								newList.push(itme)
+// 							}
+// 						})
+// 						return newList
+
+						return this.list.filter(itme =>{
+							if(itme.name.includes(keywords)){
+								return itme
+							}
+						})
+						
+
+					},	
+					
+				}
+			})
+			
+			var vm2 = new Vue({
+				el:'.box2',
+				data:{
+					dt:new Date()
+				},
+				methods:{
+					
+				},
+				filters:{     //定义私有过滤器(局部)
+				// 过滤器在调用的时候，采用的是就近原则进行调用
+					DateFromet:() =>{
+						var dt = new Date()
+						var y = dt.getFullYear()
+						var m = (dt.getMonth() + 1).toString().padStart(2,'0')
+						var d = dt.getDate().toString().padStart(2,'0')
+						var hh = dt.getHours().toString().padStart(2,'0')
+						var mm = dt.getMinutes().toString().padStart(2,'0')
+						var dd = dt.getSeconds().toString().padStart(2,'0')
+						return `${y}-${m}-${d} ${hh}:${mm}:${dd}~~~~~~~~`
+					}
+				}
+			})
+			
+		</script>
+		
+	</body>
+</html>
