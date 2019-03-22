@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue-resource改版品牌管理案例</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		
+	<body>
+		<div class="box">
+			
+			<div class="panel">
+				<div class="panel-title">
+					<h3 class="text-primary" style="padding-left: 30px;">添加品牌</h3>
+				</div>
+				<div class="panel-body form-inline">
+				
+					<label>
+						Name:
+						<input type="text" class="form-control" v-model="name" @keyUp.enter="add">
+					</label>
+					
+					<input type="button" value="添加" class="btn btn-primary" @click="add">
+					
+					<label>
+						按关键字搜索:
+						<input type="text" class="form-control">
+					</label>
+					
+				</div>
+				
+				
+			</div>
+			
+			<table class="table table-bordered table-condensed table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Ctime</th>
+						<th>Del</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="itme in list" :key="itme.id">
+						<td>{{ itme.id }}</td>
+						<td>{{ itme.name }}</td>
+						<td>{{ itme.ctime }}</td>
+						<td><a href="#" @click.prevent="del(this.id)">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			
+			
+		</div>
+		
+	
+		
+		<script type="text/javascript">
+			
+			// 创建一个vue实例
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					name:'',
+					list:[
+						{
+							id:'1',
+							name:'法拉利',
+							ctime:new Date()
+						},
+						{
+							id:'2',
+							name:'本田',
+							ctime:new Date()
+						},
+						{
+							id:'3',
+							name:'奥迪',
+							ctime:new Date()
+						}
+					]
+				},
+				created() {   //在执行created函数时,data中数据和methods中的方法已经初始化完成,
+				// 这是就可以在created中调用methods中的方法
+					this.getList()
+				},
+				methods:{
+					getList(){    //通过 vue-resource 使用获取接口数据渲染到页面
+						this.$http.get('https://www.easy-mock.com/mock/5c948410f7b5f569c1298ff7/vue/getlist')
+						.then(res => {
+							console.log(res.data)
+							var res = res.data
+							if(res.status === 0){
+								// 成功执行的操作
+								this.list = res.msg
+							}else{
+								// 失败执行的操作
+								console.log('数据获取失败')
+							}
+						})
+					},
+					add(){   //添加数据到后台服务器
+// 						this.$http.post('https://www.easy-mock.com/mock/5c948410f7b5f569c1298ff7/vue/postlist',
+// 						{name:this.name},{emulateJSON:true}).then(res => {
+// 							var res = res.data
+// 							if(res.status === 0){
+// 								this.getList()
+// 								this.name = ''
+// 							}else{
+// 								console.log('数据添加失败')
+// 							}
+// 						})
+					},
+					del(id){
+						this.$http.get('https://www.easy-mock.com/mock/5c948410f7b5f569c1298ff7/vue/getlist')
+						.then(res => {
+							var res = res.data
+							if(res.status === 0){
+								this.getList()
+							}else{
+								console.log('数据删除失败')
+							}
+						})
+					},
+
+				},
+				
+			})
+			
+
+			
+		</script>
+		
+	</body>
+</html>

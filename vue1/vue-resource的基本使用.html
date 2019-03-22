@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue-resource的基本使用</title>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		<div class="box">
+			<input type="button" value="get请求" @click="getInfo">
+			<input type="button" value="post请求" @click="postInfo">
+		</div>
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					
+				},
+				methods:{
+					getInfo(){   //发送get请求
+						this.$http.get('https://bird.ioliu.cn/v1/?url='+'http://music.163.com/api/playlist/detail?id=19723756').then(res => {
+							console.log(res.data)
+						})
+					},
+					postInfo(){  //发送post请求
+						this.$http.post('api/post_info.php',{name:'百度',city:'http://www.baidu.com'},{ emulateJSON:true }).then(function(res) {
+							document.write(res.body);    
+						},function(res) {
+							console.log(res.status);
+						})
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

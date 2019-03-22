@@ -118,9 +118,27 @@ vue学习.....
 * 生命周期函数的分类：
   * 创建期间的生命周期函数
     * beforeCreate()：这是我们遇到的第一个生命周期函数，表示示例完全被创建出来之前，会执行它。注意：在beforeCreate生命周期函数执行的时候，data和methods中的数据都还没有初始化。
-    * created()：这是遇到的第二个生命周期函数，在created生命周期函数执行时，data和methods中的数据都初始化好了，注意：如果要调用methods中的方法或者操作data中的数据，最早只能在created()中操作。 
+    * **created()**：这是遇到的第二个生命周期函数，在created生命周期函数执行时，data和methods中的数据都初始化好了，注意：如果要调用methods中的方法或者操作data中的数据，最早只能在created()中操作。 
     * beforeMount()：这是遇到的第三个生命周期函数，在beforeMount生命周期函数执行时，模版已经在内存中编译好了，但未挂载到页面上去，注意：在beforeMount执行的时候，页面中的元素还没有被真正替换过来，只是之前写的一些模版字符串。
-    * mounted()：这是遇到的第四个生命周期函数，表示内存中的模版已经真实的挂载到了页面中，注意：mounted是实例创建期间的最后一个生命周期函数，当执行完mounted就表示实例已经完全创建好了。
+    * **mounted()**：这是遇到的第四个生命周期函数，表示内存中的模版已经真实的挂载到了页面中，注意：mounted是实例创建期间的最后一个生命周期函数，当执行完mounted就表示实例已经完全创建好了。如果要操作DOM节点，最早在mounted中执行。 
   * 运行期间的生命周期函数
+    * beforeUpdate()：这时候表示我们的界面还没被更新，但数据肯定被更新了。注意：当执行beforeUpdate生命周期函数的时候，页面上显示的数据还是旧的，此时，data中的数据是最新的，页面尚未和最新的数据保持同步。
+    * updated()：updated执行时，页面和data中的数据已经保持同步了。
   * 销毁期间的生命周期函数
+    * beforeDestroy()：当执行beforeDestroy钩子函数时，vue实例已经从运行阶段进入到了销毁阶段，注意：当执行beforeDestroy的时候，实例身上所有的data和所有的methods以及指令等等，都处于可用状态，此时vue实例还没有被真正销毁。
+    * destroyed()：当执行到destroyed函数时，组件已经完全被销毁，此时组件中的所有数据、方法、指令等等，都已经不可用了。
+
+<hr />
+
+<a name="4377a9ae"></a>
+#### 使用vue-resource实现get,post,jsonp请求
+* 测试url请求地址
+  * get请求地址：http://vue.studiyt.io/api/getlunbo
+  * post请求地址：http://vue.studiyt.io/api/post
+  * jsonp请求地址：http://vue.studiyt.io/api/jsonp
+* 写法：this.$http.get( 'url地址',{},{} ).then(function( ){ })
+* 手动发起的post请求，默认没有表单格式，需要通过post的第三个参数，｛emulateJSON：true｝设置 提交的内容类型 为 普通的表单数据格式 
+* jsonp的实现原理 
+  * 由于浏览器安全性限制，不允许ajax访问，跨域就是协议不同、端口不同、域名不同的数据接口，浏览器认为这种访问不安全。
+  * 实现原理：动态创建script标签的形式，把script标签中的src属性，指向数据接口的地址，因为srcipt标签没有跨域限制，这种获取方式称为  jsonp（注意：jsonp只支持get请求）
 

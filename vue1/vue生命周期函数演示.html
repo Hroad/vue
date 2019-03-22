@@ -7,6 +7,7 @@
 	</head>
 	<body>
 		<div class="box">
+			<input type="button" value="修改msg" @click="msg='no'" />
 			<h3 id="msg">{{ msg }}</h3>
 		</div>
 		
@@ -42,9 +43,35 @@
 				},
 				mounted() {  //这是遇到的第四个生命周期函数,表示内存中的模版已经真实挂载到页面中
 					// 注意:mounted是示例创建期间最后一个生命周期函数,当执行完mounted就表示实例已经完全创建好了
+					// 如果要操作某些DOM中的节点,最早在mounted中执行
 					console.log('在mounted中执行~~~')
 					console.log(document.getElementById('msg').innerText)
+				},
+				
+				
+				// 此时vue实例从创建阶段进入到运行阶段
+				beforeUpdate() {
+// 					当执行beforeUpdate函数时,页面数据还未更新,但data中的数据已经更新了,只是页面上的数据和
+// 					data中的数据还未同步
+					console.log('在beforeUpdate中执行~~~')
+					console.log('页面上的数据：' + document.getElementById('msg').innerText)
+					console.log('data中的数据:' + this.msg)
+				},
+				updated() {
+					// 当执行updated函数时,页面和data中的数据已经同步
+					console.log('在updated中执行~~~')
+					console.log('页面上的数据：' + document.getElementById('msg').innerText)
+					console.log('data中的数据:' + this.msg)
+				},
+				
+				// 此时vue实例从运行阶段进入到销毁阶段
+				beforeDestory(){
+					
+				},
+				destroyed() {
+					
 				}
+				
 				
 				
 			})
