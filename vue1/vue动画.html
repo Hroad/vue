@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue 动画</title>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			/* v-enter    表示动画进入之前 */
+			/* v-leave-to   表示动画离开之后 */
+			.v-enter,.v-leave-to{
+				opacity: 0;
+				transform: translateX(200px);
+			}
+			
+			/* v-enter-active   入场时动画 */
+			/* v-leave-active    离场时动画 */
+			.v-enter-active,.v-leave-active{
+				transition: all 2s ease;
+			}
+			
+			
+			
+			.my-enter,.my-leave-to{
+				opacity: 0;
+				transform: translateY(200px);
+			}
+		
+			.my-enter-active,.my-leave-active{
+				transition: all 2s ease;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<input type="button" value="动画" @click="flag=!flag" />
+			<transition>
+				<h3 v-if="flag">这是一个h3</h3>
+			</transition>
+			<hr>
+			
+			<input type="button" value="动画" @click="flag2=!flag2" />
+			<transition name='my'>
+				<h3 v-if="flag2">这是一个h3</h3>
+			</transition>
+			
+		</div>
+		
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					flag:false,
+					flag2:false
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+		
+	</body>
+</html>

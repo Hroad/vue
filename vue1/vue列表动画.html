@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue列表动画</title>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				list-style-type: none;
+			}
+			ul li{
+				border: 2px dashed #8C8C8C;
+				margin: 5px;
+				line-height: 35px;
+				padding-left: 10px;
+				font-size: 14px;
+			}
+			.btn{
+				height: 40px;
+				line-height: 40px;
+				padding-left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="btn">
+				<label>
+					id:
+					<input type="text" v-model="id" />
+				</label>
+				<label>
+					name:
+					<input type="text" v-model="name" />
+				</label>
+				<input type="button" value="添加" @click="add">
+			</div>
+			
+			<ul>
+				<li v-for="time in list" :key="time.id">
+					{{ time.id }} --- {{ time.name }}
+				</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:'.box',
+				data:{
+					id:'',
+					name:'',
+					
+					list:[
+						{id:1,name:'张三'},
+						{id:2,name:'李四'},
+						{id:3,name:'王五'},
+						{id:4,name:'王二'}
+					]
+				},
+				methods:{
+					add(){
+						this.list.push({id:this.id, name:this.name})
+						this.id = this.name = ''
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- jquery -->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<button type="" class="ss">annaiu</button>
+	<script>
+		function callback(){
+			return true;
+		}
+		var objes={}
+		objes.ids=1;
+		objes.st="加密中";
+
+		//主函数
+		function cs(a,b){
+			var a2 = $.extend(true, {}, a);
+			console.log(a2);
+			let ssa=b();
+			(ssa)?a.st="加密成功":a.st="加密失败";
+			console.log(a);
+		}
+		$(".ss").click(function(){
+			var objes2 = $.extend(true, {}, objes);
+			console.log(objes2);
+			cs(objes,callback);
+		});
+		
+	</script>
+</body>
+</html>
