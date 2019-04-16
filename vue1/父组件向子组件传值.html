@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue中父组件向子组件传值</title>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="app">
+			<!-- 使用v-bind绑定父组件中的属性来向子组件传值 -->
+			<com :father="msg"></com>
+		</div>
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'.app',
+				data:{
+					msg:'这是父组件中的数据'
+				},
+				components:{
+					com:{
+						// 结论:子组件无法直接拿到父组件中的data数据
+						template:'<h1>这是子组件 --- {{ father }}</h1>',
+						// 使用props来定义父组件中绑定的属性,从而向子组件传值
+						// props中的属性是无法进行改变的
+						props:['father']
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

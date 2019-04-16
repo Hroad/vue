@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue组件案例-评论列表</title>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	</head>
+	<body>
+		<div class="app">
+			
+			<combox @func='localcontent'></combox><br>
+			
+			<ul class="list-group">
+				<li class="list-group-item" v-for="itme in list" :key="itme.id">
+					<span class="badge">评论人：{{ itme.user }}</span>
+					{{ itme.content }}
+				</li>
+				
+			</ul>
+			
+		</div>
+		
+		<template id='com'>
+				<div>
+					
+					<div class="form-group">
+						<label>评论人：</label>
+						<input type="text" class="form-control" v-model="user" />
+					</div>
+					
+					<div class="form-group">
+						<label>评论内容：</label>
+						<textarea class="form-control" v-model="content"></textarea>
+					</div>
+					
+					<input type="button" value="发表评论" class="btn btn-primary" @click="postcontent" />
+					
+				</div>
+			</template><br>
+		
+		
+		<script type="text/javascript">
+			
+			var com1 = {
+				data(){
+					return {
+						user:'',
+						content:''
+					}
+				},
+				methods:{
+					postcontent(){
+						//执行点击事件的操作
+						// 获取现在发布的评论数据
+						if(this.user != '' && this.content != ''){
+							var comtents = {id:Date.now(),user:this.user,content:this.content}
+							// 获取之前存在的评论数据
+							var list = JSON.parse(localStorage.getItem('ctms') || '[]')      
+							
+							list.push(comtents)
+							// 重新保存最新的评论数据
+							localStorage.setItem('ctms',JSON.stringify(list))
+							this.user = this.content = ''
+							
+							this.$emit('func')
+						}
+					}
+				},
+				template:'#com',
+			}
+			
+			var vm = new Vue({
+				el:'.app',
+				data:{
+					list:[
+						{
+							id:Date.now(),
+							user:'李白',
+							content:'天生我必有用'
+						},
+						{
+							id:Date.now(),
+							user:'杜甫',
+							content:'一行白鹭上青天'
+						},
+						{
+							id:Date.now(),
+							user:'江小白',
+							content:'我是江小白'
+						},
+						
+					]
+				},
+				created(){
+						this.localcontent()
+				},
+				methods:{
+					localcontent(){
+						// 从本地的localStorage中加载评论列表
+						
+						var list = JSON.parse(localStorage.getItem('ctms') || '[]')
+						this.list = list
+					
+					}
+				}, 
+				components:{
+					'combox':com1
+				}	
+			})
+		</script>
+	</body>
+</html>

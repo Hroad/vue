@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue组件</title>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="app">
+			<mycom></mycom>
+			<hr>
+			<mycom></mycom>
+			<hr>
+			<mycom></mycom>
+			
+		</div>
+		
+		<template id="inadd">
+			<div>
+				<input type="button" value="增加1" @click="add" />
+				<h3>{{ count }}</h3>
+			</div>
+		</template>
+		
+		<script type="text/javascript">
+			// 组件可以有自己的data数据
+			// 组件中的data必须为一个方法
+			// 组件的除了需要有一个方法之外,还必须返回一个对象
+			// 组件中的data数据与实例中的data数据调取方式一样
+			Vue.component('mycom',{
+				template:'#inadd',
+				data:() => {
+					return{
+						count:0,
+					}
+				},
+				methods:{
+					add(){
+						this.count++
+					}
+				}
+			})
+			
+			var vm = new Vue({
+				el:'.app',
+				data:{
+					
+				},
+				methods:{
+				
+				},
+			})
+		</script>
+		
+	</body>
+</html>

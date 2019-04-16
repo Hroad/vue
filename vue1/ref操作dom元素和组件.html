@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>使用ref操作dom元素和属性</title>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="app">
+			<input type="button" value="获取元素" @click="getdom" />
+			<h3 ref='myh3'>使用ref操作dom元素</h3>
+		</div>
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'.app',
+				data:{
+					
+				},
+				methods:{
+					getdom(){
+						console.log(this.$refs.myh3.innerText)
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

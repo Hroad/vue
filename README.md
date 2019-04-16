@@ -141,4 +141,50 @@ vue学习.....
 * jsonp的实现原理 
   * 由于浏览器安全性限制，不允许ajax访问，跨域就是协议不同、端口不同、域名不同的数据接口，浏览器认为这种访问不安全。
   * 实现原理：动态创建script标签的形式，把script标签中的src属性，指向数据接口的地址，因为srcipt标签没有跨域限制，这种获取方式称为  jsonp（注意：jsonp只支持get请求）
+<hr />
 
+<a name="b599979e"></a>
+#### 动画
+* 使用transition元素将需要被动画控制的元素包裹起来
+* 自定义两组动画来实现transition内部的元素动画
+  * .v-enter  ,  .v-leave-to     动画开始与结束时
+    * v-enter   动画进入之前，元素的起始状态，此时还没有开始进入
+    * v-leave-to    动画结束之后，离开的终止状态，此时动画已结束
+  * .v-enter-active  ,  .v-leave-active     动画中的过程
+    * v-enter-active    入场动画时间段
+    * v-leave-active    离场动画时间段    
+* 不同动画之间需要在transition上加一个name='属性名'，然后样式中就将  v-  改成   属性名-
+* 使用animated类库来实现动画
+  * 在transition上加class类：
+    * 进入时的动画类：enter-active-class="animated  动画类名"
+    * 离开时的动画类：leave-active-class="animated  动画类名"
+    * 绑定动画的时间：  :duration｛enter:进入时间，leave:离开时间 ｝
+* 使用钩子函数实现半场动画：
+  * [@before-enter：](#) 动画进入前
+  * [@enter](#) ： 动画开始
+  * [@after-enter](#) ： 动画离开后
+* 如果需要实现v-for循环出来的DOM元素的动画，则需使用transition-group包裹动画元素。如果要实现v-for渲染出来的单个列表动画，那么就一定要添加   :key   属性
+* 使用 .v-move 与  .v-leave-active｛position:absolute｝ 可以设置元素位移时的动画 
+* 给 transition-group 添加 appear 属性来实现页面的入场效果
+* tag = '标签名'   使用tag可以指定这个元素渲染为什么标签
+<hr />
+
+<a name="479bf02c"></a>
+#### 组件化与模块化的区别：
+* 模块化：是从代码逻辑的角度去划分的，方便代码分层开发，保证每一个功能模块的职能单一
+* 组件化：是从UI的角度去划分的，前端的组件化，方便UI组件的重用
+* 使用vue.extend({ template }) 与 vue.component('组件名'，创建出来的模版对象 )  来定义全局组件，使用方法：在template  里面用html标签的形式进行调用
+* 使用components:{ 组件名:{ template:' 组件内容 ' }  } 来定义私有组件
+* 组件可以有自己的data数据；组件中的data和实例中的data有点不一样，实例中的data可以为一个对象，但组件中的data必须是一个方法；组件中的data除了必须为一个方法之外，还必须返回一个对象才行；组件中的data数据和实例中的data数据使用方式完全一样
+* 组件之间的切换（tab切换）: <component :is="  '显示的组件名称'  "></component>
+* 父子组件传值
+  * 通过属性绑定的形式将父组件的数据传递给子组件（：属性名="父组件中data的数据"）<br />
+  * 使用props进行父子组件的传值，组件中的所有props中的数据都是通过父组件传递给子组件的
+  * props中的数据都是只读的，无法重新赋值
+  * 父组件传过来的数据属性都需要在props中定义一下，这样才能使用这个数据
+* 父子组件之间调用方法
+  * 通过事件绑定的形式将父组件中的方法传递给子组件（@func="父组件中的方法名"）
+  * 在子组件中添加一个click时间，然后在子组件中创建这个点击事件，之后就用在这个点击事件中通过this.$emit(  ' 组件中绑定的事件名 ' ， 可以写传递的值或不写 )
+* 使用ref获取dom元素和组件
+  * 在dom元素元素上绑定ref=' 属性名 '
+  * 在方法中操作dom元素时，使用this.$refs.属性名.操作属性<br />

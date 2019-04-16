@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue组件切换</title>
+		<script src="../bil/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.v-enter,.v-leave-to{
+				opacity: 0;
+				transform: translateX(150px);
+			}
+			.v-enter-active,.v-leave-active{
+				transition: all 1s ease;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app">
+			
+			<a href="" @click.prevent="com='login'">登录</a>
+			<a href="" @click.prevent="com='res'">注册</a>
+			
+			<!-- 使用mode进行过渡的模式切换 -->
+			<transition mode='out-in'>
+				<compoment :is="com"></compoment>
+			</transition>
+			
+			
+		</div>
+		
+		<script type="text/javascript">
+			
+			Vue.component('login',{
+				template:'<h1>登录组件</h1>'
+			})
+			
+			Vue.component('res',{
+				template:'<h1>注册组件</h1>'
+			})
+			
+			var vm = new Vue({
+				el:".app",
+				data:{
+					com:'login'
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+		
+	</body>
+</html>
