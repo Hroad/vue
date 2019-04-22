@@ -6,7 +6,9 @@ $(function(){
 	
 	$.ajax({
 		url:"http://campus.51job.com/test/sc.json",
-		type: "get",
+		// url:"http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=15872773491",
+		type: "post",
+		// data: "{'id':'7','name':'张三','sc':'床前明月光，低头泪汪汪。','cc':'管理层'}",//参数，这里是一个json语句
 		dataType: 'jsonp',
 		jsonpCallback:"ry",
 		success:function(data){
