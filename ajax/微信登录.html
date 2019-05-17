@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>第三方微信登录</title>
+	</head>
+	<body>
+		<script src="js/jq.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function myAjax (_data, _url, callBack) { //把原本的ajax封装一下，下次调用直接传地址，参数，回调就行了
+					$.ajax({
+						type: "post",
+						url: _url,
+						data: _data,
+						cache: false,
+						datatype: "json",
+						success: function (data) {
+							if (callBack != undefined) {
+								callBack(data);
+							}
+						},
+						error: function (XMLHttpRequest, textStatus, errorThrown) {
+						   alert("错误：" + errorThrown);
+						}
+					});
+				}
+			function loginCheck(){
+			  var name = $("#name").val();      //获取用户名
+			  var pwd = $("#pwd").val();           //获取密码
+			  var url="http://cheewp.duapp.com/WeChat/?action=User&method=login";
+			  myAjax({username:name ,password:pwd },url,function(data){
+				   var obj = eval ("(" + data+ ")");//这个地方如果有错的话，一般是因为eval格式出来的数据是个数组，有错的话改成eval ("(" + data+ ")")[0];
+				  if(obj.statue=="success"){ //登陆成功
+						 window.location.href="http://www.baidu.com";//填写你的跳转的url
+				  }
+				 else if(obj.statue=="error"){
+					alert(obj.error);
+				}
+			  });
+			}
+			
+			loginCheck()
+			
+		</script>
+		
+
+	</body>
+</html>
